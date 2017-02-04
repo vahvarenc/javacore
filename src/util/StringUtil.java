@@ -139,8 +139,12 @@ public class StringUtil {
 		for (; i < s.length(); i++) {
 			i = skipSpaces(s, i);
 			String strOperand = nextNumberAsString(s, i);
-			int nextNumber = parseInt(nextNumberAsString(s, i));
+			int nextNumber = parseInt(strOperand);
+			nextNumber = currOperator == '-' ? -nextNumber : nextNumber;
+
 			result += nextNumber;
+
+			//todo find next sign if exist ,or break otherwise
 
 
 		}
