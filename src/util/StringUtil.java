@@ -119,16 +119,13 @@ public class StringUtil {
 			} else {
 				throw new NumberFormatException();
 			}
-
 		}
-
 		return number;
 	}
 
-	public static int parseExpression(String s) {
+	public static int parseArithmeticExpression(String s) {
 		s = trim(s);
 		int result = 0;
-		StringBuilder currentOperand = new StringBuilder();
 		char currOperator = s.charAt(0) == '-' ? '-' : '+';
 		int i = 0;
 		if (s.charAt(0) == '-') {
@@ -143,6 +140,17 @@ public class StringUtil {
 			nextNumber = currOperator == '-' ? -nextNumber : nextNumber;
 
 			result += nextNumber;
+			i = i + strOperand.length();
+			if(i >= s.length()) break;
+			i = skipSpaces(s, i);
+			if(s.charAt(i) == '+'){
+				currOperator = '+';
+			}else if(s.charAt(i) == '-'){
+				currOperator = '-';
+			}else{
+				break;
+			}
+
 
 			//todo find next sign if exist ,or break otherwise
 
@@ -158,18 +166,17 @@ public class StringUtil {
 	 * @param s specified string
 	 * @return
 	 */
+
+
 	private static int skipSpaces(String s, int offSet) {
 		if (offSet >= s.length() || offSet < 0) {
 			throw new StringIndexOutOfBoundsException(offSet);
 		}
-
 		for (int i = offSet; i < s.length(); i++) {
-
 			if (s.charAt(i) != ' ') {
 				return i;
 			}
 		}
-
 		return -1;
 	}
 
@@ -177,11 +184,10 @@ public class StringUtil {
 		StringBuffer resultBuffer = new StringBuffer();
 		for (int i = offSet; i < s.length(); i++) {
 			char ch = s.charAt(i);
-			if ((ch < 0 || ch > 9)) {
+			if (ch < '0' || ch > '9') {
 				return resultBuffer.toString();
 			}
 			resultBuffer.append(ch);
-
 		}
 		return resultBuffer.toString();
 	}

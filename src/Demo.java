@@ -11,7 +11,7 @@ import java.io.IOException;
 public class Demo {
     public static void main(String[] args) {
         String s = "12-1+5-1+9-8+4-7";
-        System.out.println(StringUtil.parseExpression(s));
+
 
 
 
